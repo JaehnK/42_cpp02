@@ -5,29 +5,29 @@ const int	Fixed::fBits = 8;
 Fixed::Fixed(void)
 {
 	fixedPoint = 0;
-	std::cout << "Default constructor called" << std::endl;
+	// std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int num)
 {
 	fixedPoint = num << fBits;
-	std::cout << "Int constructor called" <<  std::endl;
+	// std::cout << "Int constructor called" <<  std::endl;
 }
 
 Fixed::Fixed(const float num)
 {
 	fixedPoint = roundf(num * (1 << fBits));
-	std::cout << "Float constructor called" << std::endl;
+	// std::cout << "Float constructor called" << std::endl;
 }
 
 Fixed::~Fixed()
 {
-	std::cout << "Destructor called" << std::endl;
+	// std::cout << "Destructor called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed &f)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	// std::cout << "Copy constructor called" << std::endl;
 	*this = f;
 }
 
@@ -36,7 +36,7 @@ Fixed	&Fixed::operator = (const Fixed &f)
 	if (this != &f)
 	{
 		this->fixedPoint = f.getFixedPoint();
-		std::cout << "Copy assignment operator called" << std::endl;
+		// std::cout << "Copy assignment operator called" << std::endl;
 	}
 	return *this;
 }
@@ -96,7 +96,7 @@ Fixed	Fixed::operator * (const Fixed &f) const
 Fixed	Fixed::operator / (const Fixed &f) const
 {
 	Fixed	tmp;
-	tmp.fixedPoint = (this->fixedPoint / f.fixedPoint) >>;
+	tmp.fixedPoint = (this->fixedPoint / f.fixedPoint) >> fBits;
 	return (tmp);
 }
 
@@ -147,3 +147,28 @@ std::ostream& operator<< (std::ostream &out, const Fixed &f)
 	return (out);
 }
 
+Fixed&	min(Fixed& f1, Fixed& f2)
+{
+	if (f1.getFixedPoint() <= f2.getFixedPoint())
+		return f1;
+	else
+		return f2;
+}
+
+Fixed&	max(Fixed& f1, Fixed& f2)
+{
+	if (f1.getFixedPoint() >= f2.getFixedPoint())
+		return f1;
+	else
+		return f2;
+}
+
+const Fixed& Fixed::min(const Fixed& f1, const Fixed& f2)
+{
+	return (f1.fixedPoint <= f2.fixedPoint ? f1 : f2);
+}
+
+const Fixed& Fixed::max(const Fixed& f1, const Fixed& f2)
+{
+	return (f1.fixedPoint >= f2.fixedPoint ? f1 : f2);
+}
