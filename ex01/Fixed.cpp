@@ -10,7 +10,7 @@ Fixed::Fixed(void)
 Fixed::Fixed(const int num)
 {
 	fixedPoint = num << fBits;
-	std::cout << "Int constructor called: " <<  std::endl;
+	std::cout << "Int constructor called" <<  std::endl;
 }
 
 Fixed::Fixed(const float num)
